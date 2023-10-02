@@ -2087,6 +2087,17 @@ decode QUADRANT default Unknown::unknown() {
                     }});
                 }
             }
+
+            format IOp {
+                0x1: factx({{
+                    uint64_t n = Rs1_sd;
+                    uint64_t n_f = 1;
+                    for (int i = n; i > 0; i--) {
+                        n_f *= i;
+                    }
+                    Rd = n_f;
+                }});
+            }
         }
 
         0x1b: JOp::jal({{
