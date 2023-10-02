@@ -2085,6 +2085,25 @@ decode QUADRANT default Unknown::unknown() {
                     0x00: mod({{
                         Rd = Rs1_sd % Rs2_sd;
                     }});
+
+                    0x01: comb({{
+                        uint64_t n = Rs1_sd;
+                        uint64_t r = Rs2_sd;
+                        uint64_t n_f = 1;
+                        uint64_t n_r_f = 1;
+                        uint64_t r_f = 1;
+                        for (int i = n; i > 0; i--) {
+                            n_f *= i;
+                        }
+                        for (int i = n - r; i > 0; i--) {
+                            n_r_f *= i;
+                        }
+                        for (int i = r; i > 0; i--) {
+                            r_f *= i;
+                        }
+                        uint64_t result = n_f / (n_r_f * r_f);
+                        Rd = result;
+                    }});
                 }
             }
 
