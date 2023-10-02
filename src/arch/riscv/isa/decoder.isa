@@ -2079,6 +2079,16 @@ decode QUADRANT default Unknown::unknown() {
             }}, IsIndirectControl, IsUncondControl);
         }
 
+        0x1a: decode FUNCT3 {
+            format ROp {
+                0x0: decode FUNCT7 {
+                    0x00: mod({{
+                        Rd = Rs1_sd % Rs2_sd;
+                    }});
+                }
+            }
+        }
+
         0x1b: JOp::jal({{
             Rd = rvSext(NPC);
             NPC = rvZext(PC + imm);
